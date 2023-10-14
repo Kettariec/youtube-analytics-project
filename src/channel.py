@@ -28,6 +28,27 @@ class Channel:
             self.video_count = int(playlist['statistics']['videoCount'])
             self.views = int(playlist['statistics']['viewCount'])
 
+    def __str__(self):
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other):
+        return self.subscribers + other.subscribers
+
+    def __sub__(self, other):
+        return self.subscribers - other.subscribers
+
+    def __gt__(self, other):
+        if self.subscribers > other.subscribers:
+            return True
+        else:
+            return False
+
+    def __ge__(self, other):
+        if self.subscribers >= other.subscribers:
+            return True
+        else:
+            return False
+
     @classmethod
     def get_service(cls):
         """Возвращает объект для работы с YouTube API"""
@@ -53,4 +74,4 @@ class Channel:
         }
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-            #ensure_ascii - для корректного отображения кириллицы
+            # ensure_ascii - для корректного отображения кириллицы
