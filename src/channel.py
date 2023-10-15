@@ -32,7 +32,10 @@ class Channel:
         return f"{self.title} ({self.url})"
 
     def __add__(self, other):
-        return self.subscribers + other.subscribers
+        if type(other) is Channel:
+            return self.subscribers + other.subscribers
+        else:
+            return TypeError
 
     def __sub__(self, other):
         return self.subscribers - other.subscribers
