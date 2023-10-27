@@ -11,8 +11,10 @@ class Video:
         try:
             self.__id_video = id_video
             self.title = self.video_response()['items'][0]['snippet']['title']
-            self.view_count = self.video_response()['items'][0]['statistics']['viewCount']
-            self.like_count = self.video_response()['items'][0]['statistics']['likeCount']
+            self.view_count = self.video_response()['items'][0][
+                'statistics']['viewCount']
+            self.like_count = self.video_response()['items'][0][
+                'statistics']['likeCount']
             self.url = Video.url_str + self.__id_video
         except Exception:
             self.__id_video = id_video
@@ -23,9 +25,9 @@ class Video:
 
     def video_response(self):
         """Метод для получения информации о видео"""
-        video = Video.get_service().videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                  id=self.__id_video
-                                                  ).execute()
+        video = (Video.get_service().videos().list
+                 (part='snippet,statistics,contentDetails,topicDetails',
+                  id=self.__id_video).execute())
         return video
 
     def __str__(self):
